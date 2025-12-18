@@ -1,3 +1,5 @@
+import time
+
 from playwright.sync_api import Page, expect
 from pages.register_page import RegisterPage
 from utils.config import LoginCredentials

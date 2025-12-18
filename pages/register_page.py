@@ -19,13 +19,17 @@ class RegisterPage:
             .get_by_placeholder("Email Address")
         )
         self.SIGNUP_BTN = page.locator('button[data-qa="signup-button"]')
+        self.MANAGE_CONSENT = page.get_by_role("button", name="Manage options")
+        self.ACCEPT_ALL_CONSENT = page.get_by_role("button", name="Accept all")
         self.DIALOG = page.get_by_role("button", name="Consent")
         self.REGISTER_SUCCESS_MSG = page.get_by_text("Account Created!")
 
     # Dialog Handling
     def accept_dialog(self):
         try:
-            self.DIALOG.click(timeout=10000)
+            self.MANAGE_CONSENT.click()
+            self.ACCEPT_ALL_CONSENT.click(timeout=10000)
+            #self.DIALOG.click(timeout=10000)
         except TimeoutError:
             pass
 
