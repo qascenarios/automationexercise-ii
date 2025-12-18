@@ -24,7 +24,10 @@ class RegisterPage:
 
     # Dialog Handling
     def accept_dialog(self):
-        self.DIALOG.click()
+        try:
+            self.DIALOG.click(timeout=10000)
+        except TimeoutError:
+            pass
 
     # Navigation Actions
     def click_signup_signin_link(self):
