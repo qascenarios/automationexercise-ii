@@ -1,0 +1,12 @@
+[
+  {
+    "email": "tester_245@mail.com",
+    "password": "tester2025#",
+    "valid": true
+  },
+  {
+    "email": "tester_0@mail.com",
+    "password": "abc123",
+    "valid": false
+  }
+]
