@@ -1,0 +1,43 @@
+import pytest
+from playwright.sync_api import Page, expect
+from pages.search_product_page import SearchProductsPage
+from pages.register_page import RegisterPage
+from conftest import open_browser
+
+
+# Test Data
+search_products = [
+    "Fancy Green Top",
+    "Cotton Mull Embroidered Dress",
+    "Grunt Blue Slim Fit Jeans",
+    "Winter Top"
+]
+
+
+# Product Search Test
+@pytest.mark.parametrize("product", search_products)
+def test_search_product(product, open_browser: Page):
+    """
+    Verify that users can search for products
+    and that searched products appear in the results
+    """
+
+    # Page Object Initialization
+    register_page_reusable = RegisterPage(open_browser)
+    search_page = SearchProductsPage(open_browser)
+
+    # Precondition: Accept Consent Dialog
+    register_page_reusable.accept_dialog()
+
+    # Navigate to Products Page
+    search_page.click_product_element()
+
+    # Perform Product Search
+    search_page.search_for_product(product)
+    search_page.click_on_search_btn()
+
+    # Validate Search Results
+    expect(search_page.get_first_searched_product()).to_contain_text(product)
+
+    # Cleanup: Reset Search Field
+    search_page.clear_search_field()
