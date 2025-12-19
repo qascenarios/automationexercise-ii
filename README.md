@@ -97,14 +97,15 @@ Run a specific test file:
 pytest tests/auth/test_register.py
 ```
 
-## Test Reports
+## Test Reports and run allure server
 
 Pytest output is shown in the terminal by default.
 
-To generate an HTML report (optional), install `pytest-html` and run:
+To generate an Allure report run:
 
 ```bash
 pytest --alluredir=allure-results
+allure serve allure-results
 ```
 
 ## Supported Browsers
@@ -128,8 +129,6 @@ Browser selection is controlled via pytest command-line options.
 ## License
 
 This project is intended for **learning, practice, and demonstration purposes only**.
-
----
 
 ## Author
 
