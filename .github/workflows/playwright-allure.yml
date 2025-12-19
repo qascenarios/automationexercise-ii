@@ -39,7 +39,7 @@ jobs:
     # Run tests in headless mode and generate Allure results
     - name: Run Playwright tests (headless)
       run: |
-        pytest --headless --alluredir=allure-results
+        pytest --headed --alluredir=allure-results
 
     # Upload Allure results as artifact
     - name: Upload Allure results
