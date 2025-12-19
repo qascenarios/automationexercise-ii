@@ -1,5 +1,3 @@
-
-
 class LoginCredentials:
 
     EMAIL =  "your_email"

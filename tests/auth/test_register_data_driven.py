@@ -1,29 +1,20 @@
-import json
-
 import pytest
 from playwright.sync_api import Page, expect
 from conftest import open_browser
 from pages.account_info_page import AccountInformationPage
 from pages.register_page import RegisterPage
-from utils.helpers import generate_random_email
+from utils.helpers import read_json, generate_random_email, accept_consent_dialog
 
 
-def read_json(file_path):
-    file = open(file_path, 'r')
-    return json.load(file)
-
-
-#@pytest.mark.parametrize("")
 def test_register_new_user(open_browser: Page):
-
-    # Test Data Setup
+    # Precondition Handling
+    accept_consent_dialog(open_browser)
+    # Test Data
     random_email = generate_random_email()
     acct_info = read_json("testdata/register.json")
     # Page Object Initialization
     register = RegisterPage(open_browser)
     account_info_page = AccountInformationPage(open_browser)
-    # Precondition Handling
-    register.accept_dialog()
     # User Registration
     register.register_actions("tester", random_email)
     # Account Information Submission

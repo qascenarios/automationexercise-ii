@@ -2,18 +2,17 @@ from playwright.sync_api import Page, expect
 from conftest import open_browser
 from pages.account_info_page import AccountInformationPage
 from pages.register_page import RegisterPage
-from utils.helpers import generate_random_email
+from utils.helpers import generate_random_email, accept_consent_dialog
 
 
 def test_register_new_user(open_browser: Page):
-
+    # Precondition Handling
+    accept_consent_dialog(open_browser)
     # Test Data Setup
     random_email = generate_random_email()
     # Page Object Initialization
     register = RegisterPage(open_browser)
     account_info_page = AccountInformationPage(open_browser)
-    # Precondition Handling
-    register.accept_dialog()
     # User Registration
     register.register_actions("tester", random_email)
     # Account Information Submission

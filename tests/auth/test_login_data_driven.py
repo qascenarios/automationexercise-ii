@@ -1,20 +1,21 @@
 from playwright.sync_api import Page, expect
-import pytest, json
+import pytest
+from utils.helpers import read_json, accept_consent_dialog
 from pages.register_page import RegisterPage
 from utils.config import LoginCredentials
 from pages.login_page import LoginPage
 from conftest import open_browser
 
-with open("testdata/login_data.json") as f:
-    login_data = json.load(f)
-
+# Test Data
+login_data = read_json("testdata/login_data.json")
 
 @pytest.mark.parametrize("email, password, valid",
                          [(data["email"], data["password"], data["valid"]) for data in login_data])
 def test_valid_and_invalid_login(email, password, valid, open_browser: Page):
+    # Precondition Handling
+    accept_consent_dialog(open_browser)
     # Page Object Initialization
     register_page_reusable = RegisterPage(open_browser)
-    register_page_reusable.accept_dialog()
     login_page = LoginPage(open_browser)
     # User login
     register_page_reusable.click_signup_signin_link()
