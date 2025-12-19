@@ -31,10 +31,12 @@ jobs:
     - name: Install Playwright browsers
       run: python -m playwright install --with-deps
 
-    # Remove previous Allure results (clean run)
-    - name: Clean Allure results
+    # Remove previous results (clean run)
+    - name: Clean previous results
       run: |
-        rm -rf allure-results
+        rm -rf allure-results test-results
+        mkdir -p allure-results
+        mkdir -p test-results/screenshots test-results/videos test-results/traces
 
     # Run tests in headless mode and generate Allure results
     - name: Run Playwright tests
@@ -49,10 +51,10 @@ jobs:
         name: allure-results
         path: allure-results/
 
-    # Upload Playwright traces
-    - name: Upload Playwright traces
+    # Upload Playwright artifacts (screenshots, videos, traces)
+    - name: Upload Playwright artifacts
       if: ${{ !cancelled() }}
       uses: actions/upload-artifact@v4
       with:
-        name: playwright-traces
+        name: playwright-artifacts
         path: test-results/
