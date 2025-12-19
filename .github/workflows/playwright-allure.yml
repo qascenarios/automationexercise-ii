@@ -37,9 +37,9 @@ jobs:
         rm -rf allure-results
 
     # Run tests in headless mode and generate Allure results
-    - name: Run Playwright tests (headless)
+    - name: Run Playwright tests
       run: |
-        pytest --headed --alluredir=allure-results
+        pytest --alluredir=allure-results
 
     # Upload Allure results as artifact
     - name: Upload Allure results
