@@ -1,3 +1,4 @@
+[![Playwright Tests](https://github.com/qascenarios/automationexercise-ii/actions/workflows/playwright-allure.yml/badge.svg)](https://github.com/qascenarios/automationexercise-ii/actions/workflows/playwright-allure.yml)
 
 # Pytest-Playwright Partial End-to-End Tests – Automation Exercise
 
