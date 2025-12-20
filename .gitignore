@@ -1,3 +1,4 @@
 .idea/
 __pycache__
 #utils/config.py
+allure-results/
