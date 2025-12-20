@@ -109,6 +109,29 @@ pytest --alluredir=allure-results
 allure serve allure-results
 ```
 
+## Docker Containerization:
+
+The tests are packaged into a Docker image, making them easy to run on any machine without local setup.
+
+# Run tests using the prebuilt docker image:
+
+```bash
+docker pull topdandy/automationexercise-ii:latest
+docker run --rm -v $(pwd)/allure-results:/app/allure-results topdandy/automationexercise-ii:latest
+```
+
+# Clone the Repository and Run via Script:
+
+```bash
+git clone https://github.com/qascenarios/automationexercise-ii.git
+cd automationexercise-ii
+```
+
+```bash
+chmod +x dockerfile.sh
+./dockerfile.sh
+```
+
 ## Supported Browsers
 
 Using pytest-playwright, tests can run on:
