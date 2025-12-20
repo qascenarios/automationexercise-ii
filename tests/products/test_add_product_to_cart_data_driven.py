@@ -1,14 +1,14 @@
 from utils.helpers import read_json, accept_consent_dialog
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 from pages.register_page import RegisterPage
 from pages.login_page import LoginPage
 from utils.config import LoginCredentials
 from pages.cart_page import CartPage
-from conftest import open_browser
+from tests.conftest import open_browser
 
 
 # Test Data
-products = read_json("testdata/products.json")["products"]
+products = read_json("utils/testdata/products.json")["products"]
 
 def test_search_product(open_browser: Page):
     """

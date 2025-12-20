@@ -3,7 +3,7 @@ from playwright.sync_api import Page, expect
 from pages.search_product_page import SearchProductsPage
 from pages.register_page import RegisterPage
 from utils.helpers import accept_consent_dialog
-from conftest import open_browser
+from tests.conftest import open_browser
 
 
 # Test Data

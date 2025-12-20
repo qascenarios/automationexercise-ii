@@ -1,5 +1,5 @@
-from playwright.sync_api import Page, expect
-from conftest import open_browser
+from playwright.sync_api import Page
+from tests.conftest import open_browser
 from pages.account_info_page import AccountInformationPage
 from pages.register_page import RegisterPage
 from utils.helpers import generate_random_email, accept_consent_dialog

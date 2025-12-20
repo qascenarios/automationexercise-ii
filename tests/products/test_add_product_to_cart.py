@@ -1,11 +1,10 @@
-from playwright.sync_api import Page, expect
-from pages.search_product_page import SearchProductsPage
+from playwright.sync_api import Page
 from pages.register_page import RegisterPage
 from pages.login_page import LoginPage
 from utils.config import LoginCredentials
 from pages.cart_page import CartPage
 from utils.helpers import accept_consent_dialog
-from conftest import open_browser
+from tests.conftest import open_browser
 
 # Test Data
 products = [

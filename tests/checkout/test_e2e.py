@@ -8,8 +8,8 @@ from utils.helpers import accept_consent_dialog
 from utils.config import LoginCredentials
 
 # Test Data
-card = read_json("testdata/card_info.json")
-products = read_json("testdata/products.json")["products"]
+card = read_json("utils/testdata/card_info.json")
+products = read_json("utils/testdata/products.json")["products"]
 
 def test_end_to_end_test_for_customer_lifecycle(open_browser: Page):
     """

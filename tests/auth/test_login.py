@@ -1,8 +1,8 @@
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 from pages.register_page import RegisterPage
 from utils.config import LoginCredentials
 from pages.login_page import LoginPage
-from conftest import open_browser
+from tests.conftest import open_browser
 from utils.helpers import accept_consent_dialog
 
 def test_login(open_browser: Page):
