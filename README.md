@@ -128,8 +128,8 @@ cd automationexercise-ii
 ```
 
 ```bash
-chmod +x dockerfile.sh
-./dockerfile.sh
+chmod +x run-tests.sh
+./run-tests.sh
 ```
 
 ## Supported Browsers
