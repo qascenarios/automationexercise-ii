@@ -4,7 +4,7 @@
 set -e
 
 # Docker image name
-IMAGE_NAME="topdandy/automationexercise-ii:latest"
+IMAGE_NAME="topdandy/automationexercise-ii-mb:latest"
 
 # Allure results directory
 ALLURE_RESULTS_DIR="$(pwd)/allure-results"
