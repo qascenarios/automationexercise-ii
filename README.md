@@ -1,6 +1,6 @@
 [![Playwright Tests](https://github.com/qascenarios/automationexercise-ii/actions/workflows/playwright-allure.yml/badge.svg)](https://github.com/qascenarios/automationexercise-ii/actions/workflows/playwright-allure.yml)
 
-# Pytest-Playwright Partial End-to-End Tests – Automation Exercise
+# Pytest-Playwright End-to-End Tests – Automation Exercise
 
 This repository contains **partial end-to-end (E2E) tests** written using **pytest-playwright** for 
 the Automation Exercise application, with a focus on register, login, and cart functionality.
