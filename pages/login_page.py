@@ -1,6 +1,5 @@
 from playwright.sync_api import Page, expect
 
-
 class LoginPage:
     """
     Login Page

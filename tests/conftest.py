@@ -1,7 +1,6 @@
 import pytest
 from playwright.sync_api import Page
 
-# Pytest Fixture: Browser Setup
 
 @pytest.fixture
 def open_browser(page: Page):

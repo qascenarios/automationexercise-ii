@@ -1,4 +1,3 @@
-
 from playwright.sync_api import Page, expect
 
 class CheckoutPage:
@@ -6,7 +5,6 @@ class CheckoutPage:
         self.page = page
 
     # Locators
-        # self.CART_LINK = page.get_by_role("link", name="Cart") cart_page
         self.PROCEED_TO_CHECKOUT_BTN = page.get_by_text("Proceed To Checkout")
         self.PLACE_ORDER_BTN = page.get_by_role("link", name="Place Order")
         self.NAME_ON_CARD_INPUT = page.locator("input[name=\"name_on_card\"]")

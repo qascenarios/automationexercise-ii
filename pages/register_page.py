@@ -19,12 +19,7 @@ class RegisterPage:
             .get_by_placeholder("Email Address")
         )
         self.SIGNUP_BTN = page.locator('button[data-qa="signup-button"]')
-        #self.DIALOG = page.get_by_role("button", name="Consent")
         self.REGISTER_SUCCESS_MSG = page.get_by_text("Account Created!")
-
-    # Dialog Handling
-    # def accept_dialog(self):
-        #self.DIALOG.click()
 
     # Navigation Actions
     def click_signup_signin_link(self):
