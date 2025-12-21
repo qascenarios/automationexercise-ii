@@ -48,7 +48,7 @@ RESPONSE - I choose:
         • It provides inbuilt auto-waiting, thereby reducing "flaky" tests.
         • Multiple test cases can be runned in parallel execution.
         • Playwright supports API testing without installing any external packages.
-        • Playwright provides a powerful GUI debugging tool called Trace, which to visually inspect test execution step by step.
+        • Playwright provides a powerful GUI debugging tool called Playwright inspectorand Trace, which to visually inspect test execution step by step.
         • It provides features like fixtures, parameterization, and excellent reporting plugins (pytest-html or allure).
         • It is significantly faster and more modern than Selenium and WebDriverIO.
 
