@@ -116,7 +116,7 @@ The tests are packaged into a Docker image, making them easy to run on any machi
 # Run tests using the prebuilt docker image:
 
 ```bash
-docker pull topdandy/automationexercise-ii:latest
+docker pull topdandy/automationexercise-ii-mb:latest
 docker run --rm -v $(pwd)/allure-results:/app/allure-results topdandy/automationexercise-ii-mb:latest
 ```
 
