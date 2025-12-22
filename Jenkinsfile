@@ -2,54 +2,78 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "topdandy/automationexercise-ii:latest"
-        ALLURE_RESULTS = "allure-results"
+        DOCKERHUB_CREDENTIALS = 'dockerhub-creds'
+        DOCKER_IMAGE = 'topdandy/automationexercise-ii-mb'
+        IMAGE_TAG = 'latest'
+        ALLURE_RESULTS = 'allure-results'
     }
 
     stages {
 
-        stage('Checkout Source') {
+        stage('Docker Login') {
             steps {
-                checkout scm
+                withCredentials([usernamePassword(
+                    credentialsId: DOCKERHUB_CREDENTIALS,
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    '''
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+                    docker build -t $DOCKER_IMAGE:$IMAGE_TAG .
+                '''
+            }
+        }
+
+        stage('Push Image to Docker Hub') {
+            steps {
+                sh '''
+                    docker push $DOCKER_IMAGE:$IMAGE_TAG
+                '''
             }
         }
 
         stage('Clean Previous Allure Results') {
             steps {
-                echo 'Cleaning old Allure results...'
-                sh "rm -rf ${ALLURE_RESULTS}"
-                sh "mkdir -p ${ALLURE_RESULTS}"
+                sh '''
+                    rm -rf $ALLURE_RESULTS
+                    mkdir -p $ALLURE_RESULTS
+                '''
             }
         }
 
         stage('Run Playwright Tests in Docker') {
             steps {
-                echo 'Running tests inside Docker container...'
-                sh """
-                docker run --rm \
-                  -v \$(pwd)/${ALLURE_RESULTS}:/app/${ALLURE_RESULTS} \
-                  ${IMAGE_NAME}
-                """
+                sh '''
+                    docker run --rm \
+                      -v $(pwd)/$ALLURE_RESULTS:/app/$ALLURE_RESULTS \
+                      $DOCKER_IMAGE:$IMAGE_TAG
+                '''
             }
         }
 
         stage('Publish Allure Report') {
             steps {
-                echo 'Publishing Allure report...'
-                allure includeProperties: false,
-                       jdk: '',
-                       results: [[path: "${ALLURE_RESULTS}"]]
+                allure results: [[path: "$ALLURE_RESULTS"]]
             }
         }
     }
 
     post {
         always {
+            sh 'docker logout'
             echo 'Pipeline finished.'
         }
 
         failure {
-            echo 'Pipeline failed. Check test results and Allure report.'
+            echo 'Pipeline failed. Check logs and Allure report.'
         }
     }
 }
