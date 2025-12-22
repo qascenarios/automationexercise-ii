@@ -116,8 +116,12 @@ The tests are packaged into a Docker image, making them easy to run on any machi
 # Run tests using the prebuilt docker image:
 
 ```bash
+---ARM64/M1,M2,M3---
 docker pull topdandy/automationexercise-ii-mb:latest
 docker run --rm -v $(pwd)/allure-results:/app/allure-results topdandy/automationexercise-ii-mb:latest
+---AMD64/Intel---
+docker run topdandy/automationexercise-ii-amd64-mb:latest
+docker run --rm -v $(pwd)/allure-results:/app/allure-results topdandy/automationexercise-ii-amd64-mb:latest
 ```
 
 # Clone the Repository and Run via Script:
