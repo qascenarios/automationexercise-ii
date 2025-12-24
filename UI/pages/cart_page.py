@@ -1,5 +1,5 @@
 from playwright.sync_api import Page
-from pages.search_product_page import SearchProductsPage
+
 
 class CartPage:
     """

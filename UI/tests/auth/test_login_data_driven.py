@@ -1,12 +1,12 @@
 from playwright.sync_api import Page
 import pytest
-from utils.helpers import read_json, accept_consent_dialog
-from pages.register_page import RegisterPage
-from pages.login_page import LoginPage
-from tests.conftest import open_browser
+from UI.utils.helpers import read_json, accept_consent_dialog
+from UI.pages.register_page import RegisterPage
+from UI.pages.login_page import LoginPage
+from UI.tests.conftest import open_browser
 
 # Test Data
-login_data = read_json("utils/testdata/login_data.json")
+login_data = read_json("UI/utils/testdata/login_data.json")
 
 @pytest.mark.parametrize("email, password, valid",
                          [(data["email"], data["password"], data["valid"]) for data in login_data])

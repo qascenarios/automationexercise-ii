@@ -10,7 +10,7 @@ def test_register_new_user(open_browser: Page):
     accept_consent_dialog(open_browser)
     # Test Data
     random_email = generate_random_email()
-    acct_info = read_json("utils/testdata/register.json")
+    acct_info = read_json("UI/utils/testdata/register.json")
     # Page Object Initialization
     register = RegisterPage(open_browser)
     account_info_page = AccountInformationPage(open_browser)

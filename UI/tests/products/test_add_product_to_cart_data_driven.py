@@ -8,7 +8,7 @@ from UI.tests.conftest import open_browser
 
 
 # Test Data
-products = read_json("utils/testdata/products.json")["products"]
+products = read_json("UI/utils/testdata/products.json")["products"]
 
 def test_search_product(open_browser: Page):
     """
