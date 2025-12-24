@@ -1,9 +1,9 @@
 import pytest
 from playwright.sync_api import Page, expect
-from pages.search_product_page import SearchProductsPage
-from pages.register_page import RegisterPage
-from utils.helpers import accept_consent_dialog
-from tests.conftest import open_browser
+from UI.pages.search_product_page import SearchProductsPage
+from UI.pages.register_page import RegisterPage
+from UI.utils.helpers import accept_consent_dialog
+from UI.tests.conftest import open_browser
 
 
 # Test Data

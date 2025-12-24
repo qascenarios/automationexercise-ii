@@ -1,15 +1,16 @@
 from playwright.sync_api import Page
-from tests.conftest import open_browser
-from pages.account_info_page import AccountInformationPage
-from pages.register_page import RegisterPage
-from utils.helpers import generate_random_email, accept_consent_dialog
+from UI.tests.conftest import open_browser
+from UI.pages.account_info_page import AccountInformationPage
+from UI.pages.register_page import RegisterPage
+from UI.utils.helpers import read_json, generate_random_email, accept_consent_dialog
 
 
 def test_register_new_user(open_browser: Page):
     # Precondition Handling
     accept_consent_dialog(open_browser)
-    # Test Data Setup
+    # Test Data
     random_email = generate_random_email()
+    acct_info = read_json("utils/testdata/register.json")
     # Page Object Initialization
     register = RegisterPage(open_browser)
     account_info_page = AccountInformationPage(open_browser)
@@ -17,15 +18,15 @@ def test_register_new_user(open_browser: Page):
     register.register_actions("tester", random_email)
     # Account Information Submission
     account_info_page.account_info_actions(
-        "tester2025#",
-        "Sulaimon",
-        "Ekundayo",
-        "22, Chedlin Avenue",
-        "Canada",
-        "Toronto",
-        "Toronto Boulevard",
-        "202025",
-        "+154654422",
+        acct_info["password"],
+        acct_info["firstname"],
+        acct_info["lastname"],
+        acct_info["address1"],
+        acct_info["country"],
+        acct_info["state"],
+        acct_info["city"],
+        acct_info["zipcode"],
+        acct_info["phone"]
     )
 
     # Verification

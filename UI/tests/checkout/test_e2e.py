@@ -1,11 +1,11 @@
 from playwright.sync_api import Page
-from pages.cart_page import CartPage
-from pages.checkout_page import CheckoutPage
-from pages.login_page import LoginPage
-from pages.register_page import RegisterPage
-from utils.helpers import read_json
-from utils.helpers import accept_consent_dialog
-from utils.config import LoginCredentials
+from UI.pages.cart_page import CartPage
+from UI.pages.checkout_page import CheckoutPage
+from UI.pages.login_page import LoginPage
+from UI.pages.register_page import RegisterPage
+from UI.utils.helpers import read_json
+from UI.utils.helpers import accept_consent_dialog
+from UI.utils.config import LoginCredentials
 
 # Test Data
 card = read_json("utils/testdata/card_info.json")

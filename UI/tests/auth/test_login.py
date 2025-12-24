@@ -1,9 +1,9 @@
 from playwright.sync_api import Page
-from pages.register_page import RegisterPage
-from utils.config import LoginCredentials
-from pages.login_page import LoginPage
-from tests.conftest import open_browser
-from utils.helpers import accept_consent_dialog
+from UI.pages.register_page import RegisterPage
+from UI.utils.config import LoginCredentials
+from UI.pages.login_page import LoginPage
+from UI.tests.conftest import open_browser
+from UI.utils.helpers import accept_consent_dialog
 
 def test_login(open_browser: Page):
     # Precondition Handling

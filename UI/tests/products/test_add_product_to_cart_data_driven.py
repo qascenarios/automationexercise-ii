@@ -1,10 +1,10 @@
-from utils.helpers import read_json, accept_consent_dialog
+from UI.utils.helpers import read_json, accept_consent_dialog
 from playwright.sync_api import Page
-from pages.register_page import RegisterPage
-from pages.login_page import LoginPage
-from utils.config import LoginCredentials
-from pages.cart_page import CartPage
-from tests.conftest import open_browser
+from UI.pages.register_page import RegisterPage
+from UI.pages.login_page import LoginPage
+from UI.utils.config import LoginCredentials
+from UI.pages.cart_page import CartPage
+from UI.tests.conftest import open_browser
 
 
 # Test Data

@@ -19,6 +19,7 @@ class SearchProductsPage:
     # Navigation Actions
     def click_product_element(self):
         self.SEARCH_PRODUCTS_ELEMENT.click()
+        self.page.wait_for_load_state("networkidle")
 
     # Search Actions
     def search_for_product(self, item):
