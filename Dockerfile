@@ -3,7 +3,6 @@
 # =========================
 FROM python:3.11-slim AS builder
 
-# Install system deps needed for Playwright + build
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     git \
@@ -26,27 +25,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Install Python deps
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Playwright Chromium only
+# Install Playwright Chromium
 ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 RUN playwright install chromium
 
-# Copy project files
+# Copy project source
 COPY . .
 
-# Remove test artifacts if any
+# Remove runtime artifacts
 RUN rm -rf allure-results
 
-
 # =========================
-# Runtime stage (small)
+# Runtime stage
 # =========================
-FROM python:3.11-slim AS runtime
+FROM python:3.11-slim
 
-# Install only runtime system deps (no curl/git/wget)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libnss3 \
     libatk1.0-0 \
@@ -66,16 +62,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Copy installed Python packages
-COPY --from=builder /usr/local/lib/python3.11 /usr/local/lib/python3.11
-COPY --from=builder /usr/local/bin /usr/local/bin
-
-# Copy Playwright browsers
+COPY --from=builder /usr/local /usr/local
 COPY --from=builder /ms-playwright /ms-playwright
-ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
-
-# Copy app source
 COPY --from=builder /app /app
 
-# Default command
-CMD ["pytest", "API/tests", "UI/tests", "--alluredir=allure-results"]
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+
+CMD ["pytest", "--alluredir=allure-results"]
