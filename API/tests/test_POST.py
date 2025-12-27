@@ -1,6 +1,50 @@
 import pprint
 import pytest
 from UI.utils.helpers import request_context, base_url
+from UI.utils.helpers import generate_random_email
+
+
+def test_register_new_user_account(request_context):
+    """
+     Test Case: Register a new user account
+     Description:
+     This test sends a POST request to the 'createAccount'
+     API endpoint to register a new user.
+     A random email is generated to avoid duplicate
+     registration conflicts.
+
+    :param request_context:
+    :return:
+    """
+    payload = {
+        "name": "investor",
+        "email": generate_random_email(),
+        "title": "",
+        "birth_date": "",
+        "birth_month": "",
+        "birth_year": "",
+        "firstname": "Sulaimon",
+        "lastname": "Ekundayo",
+        "company": "",
+        "address1": "44, Main Str",
+        "address2": "",
+        "country": "India",
+        "zipcode": "2345",
+        "state": "Delhi",
+        "city": "Delhi",
+        "mobile_number": "447788990022"
+    }
+
+    response = request_context.post(f"{base_url}createAccount", data=payload)
+    assert response.ok
+    assert response.status == 200
+
+    assert response.status_text == "OK"
+
+    response_body = response.json()
+    pprint.pprint(response_body)
+    assert response_body["responseCode"] == 400
+
 
 def test_post_to_all_product_list(request_context):
     """
@@ -59,12 +103,14 @@ def test_verify_login_with_valid_credentials(request_context):
     """
 
     params = {
-        "email": "test_245@mail.com",
+        "email": "tester_245@mail.com",
         "password": "tester2025#"
     }
     response = request_context.post(f"{base_url}verifyLogin", params=params)
     assert response.status == 200
 
     pprint.pprint(response.json())
+
+
 
 

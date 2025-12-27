@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -17,26 +18,20 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh '''
-                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                    '''
+                    sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh '''
-                    docker build -t $DOCKER_IMAGE:$IMAGE_TAG .
-                '''
+                sh 'docker build -t $DOCKER_IMAGE:$IMAGE_TAG .'
             }
         }
 
         stage('Push Image to Docker Hub') {
             steps {
-                sh '''
-                    docker push $DOCKER_IMAGE:$IMAGE_TAG
-                '''
+                sh 'docker push $DOCKER_IMAGE:$IMAGE_TAG'
             }
         }
 
@@ -54,14 +49,17 @@ pipeline {
                 sh '''
                     docker run --rm \
                       -v $(pwd)/$ALLURE_RESULTS:/app/$ALLURE_RESULTS \
-                      $DOCKER_IMAGE:$IMAGE_TAG
+                      $DOCKER_IMAGE:$IMAGE_TAG \
+                      pytest tests --alluredir=/app/$ALLURE_RESULTS
                 '''
             }
         }
 
         stage('Publish Allure Report') {
             steps {
-                allure results: [[path: "$ALLURE_RESULTS"]]
+                allure includeProperties: false,
+                       jdk: '',
+                       results: [[path: "$ALLURE_RESULTS"]]
             }
         }
     }
@@ -71,7 +69,6 @@ pipeline {
             sh 'docker logout'
             echo 'Pipeline finished.'
         }
-
         failure {
             echo 'Pipeline failed. Check logs and Allure report.'
         }
