@@ -78,4 +78,4 @@ ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 COPY --from=builder /app /app
 
 # Default command
-CMD ["pytest, "API/tests", "UI/tests", "--alluredir=allure-results"]
+CMD ["pytest", "API/tests", "UI/tests", "--alluredir=allure-results"]
