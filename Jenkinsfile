@@ -11,6 +11,12 @@ pipeline {
 
     stages {
 
+        stage('Checkout Source') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(
@@ -18,24 +24,30 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    '''
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE:$IMAGE_TAG .'
+                sh '''
+                    docker build -t $DOCKER_IMAGE:$IMAGE_TAG .
+                '''
             }
         }
 
         stage('Push Image to Docker Hub') {
             steps {
-                sh 'docker push $DOCKER_IMAGE:$IMAGE_TAG'
+                sh '''
+                    docker push $DOCKER_IMAGE:$IMAGE_TAG
+                '''
             }
         }
 
-        stage('Clean Previous Allure Results') {
+        stage('Prepare Allure Results') {
             steps {
                 sh '''
                     rm -rf $ALLURE_RESULTS
@@ -44,22 +56,19 @@ pipeline {
             }
         }
 
-        stage('Run Playwright Tests in Docker') {
+        stage('Run Tests in Docker') {
             steps {
                 sh '''
                     docker run --rm \
                       -v $(pwd)/$ALLURE_RESULTS:/app/$ALLURE_RESULTS \
-                      $DOCKER_IMAGE:$IMAGE_TAG \
-                      pytest tests --alluredir=/app/$ALLURE_RESULTS
+                      $DOCKER_IMAGE:$IMAGE_TAG
                 '''
             }
         }
 
         stage('Publish Allure Report') {
             steps {
-                allure includeProperties: false,
-                       jdk: '',
-                       results: [[path: "$ALLURE_RESULTS"]]
+                allure results: [[path: "$ALLURE_RESULTS"]]
             }
         }
     }
@@ -68,9 +77,6 @@ pipeline {
         always {
             sh 'docker logout'
             echo 'Pipeline finished.'
-        }
-        failure {
-            echo 'Pipeline failed. Check logs and Allure report.'
         }
     }
 }
