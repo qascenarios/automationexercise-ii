@@ -2,7 +2,7 @@ import pytest
 from playwright.sync_api import Page
 
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def open_browser(page: Page):
     """
         This fixture opens the browser and navigates to the base URL
