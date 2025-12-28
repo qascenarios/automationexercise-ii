@@ -13,7 +13,7 @@ def generate_random_email():
         This is useful for scenarios like user registration,
         where a unique email address is required for every test run.
     """
-    return f"tester_{random.randint(10,10000)}@mail.com"
+    return f"tester_{int(time.time() * 1000)}@mail.com"
 
 def read_json(file_path):
     """
