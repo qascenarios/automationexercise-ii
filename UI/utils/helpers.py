@@ -42,10 +42,11 @@ def accept_consent_dialog(page: Page):
         dialog.click()
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def request_context(playwright: Playwright):
     context = playwright.request.new_context()
     yield context
-    context.dispose()
+    context.dispose(
+    )
 
 
