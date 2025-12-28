@@ -15,6 +15,7 @@ search_products = [
 ]
 
 # Product Search Test
+@pytest.mark.order(1)
 @pytest.mark.parametrize("product", search_products)
 def test_search_product(product, open_browser: Page):
     """
@@ -24,7 +25,6 @@ def test_search_product(product, open_browser: Page):
     # Precondition Handling
     accept_consent_dialog(open_browser)
     # Page Object Initialization
-    register_page_reusable = RegisterPage(open_browser)
     search_page = SearchProductsPage(open_browser)
     # Navigate to Products Page
     search_page.click_product_element()
