@@ -4,6 +4,7 @@ from UI.utils.helpers import request_context, base_url
 from UI.utils.helpers import generate_random_email
 
 
+@pytest.mark.TC11
 def test_register_new_user_account(request_context):
     """
      Test Case: Register a new user account
@@ -16,9 +17,10 @@ def test_register_new_user_account(request_context):
     :param request_context:
     :return:
     """
-    payload = {
+    form_data = {
         "name": "investor",
         "email": generate_random_email(),
+        "password": "tester2025#",
         "title": "",
         "birth_date": "",
         "birth_month": "",
@@ -35,17 +37,14 @@ def test_register_new_user_account(request_context):
         "mobile_number": "447788990022"
     }
 
-    response = request_context.post(f"{base_url}createAccount", data=payload)
-    assert response.ok
-    assert response.status == 200
-
-    assert response.status_text == "OK"
+    response = request_context.post(f"{base_url}api/createAccount", form=form_data)
 
     response_body = response.json()
-    pprint.pprint(response_body)
-    assert response_body["responseCode"] == 400
+    assert response_body["responseCode"] == 201
+    assert response_body["message"] == "User created!"
 
 
+@pytest.mark.TC22
 def test_post_to_all_product_list(request_context):
     """
     # Test Case: POST request to Products List endpoint
@@ -59,10 +58,13 @@ def test_post_to_all_product_list(request_context):
     :param request_context:
     :return:
     """
-    response = request_context.post(f"{base_url}productsList")
-    assert response.status == 200
-    assert response.status_text == "OK"
+    response = request_context.post(f"{base_url}api/productsList")
 
+    response_body = response.json()
+    assert response_body["responseCode"] == 405
+    assert response_body["message"] == "This request method is not supported."
+
+@pytest.mark.TC33
 def test_search_for_products(request_context):
     """
     Test Case: Search for products
@@ -80,13 +82,14 @@ def test_search_for_products(request_context):
     }
 
     response = request_context.post(
-        f"{base_url}searchProduct",
-        data=payload
+        f"{base_url}api/searchProduct",
+        form=payload
     )
+    response_body = response.json()
+    assert response_body["responseCode"] == 200
+    assert len(response_body["products"]) > 0
 
-    assert response.status == 200
-    pprint.pprint(response.json())
-
+@pytest.mark.TC44
 def test_verify_login_with_valid_credentials(request_context):
     """
     # Test Case: Verify login with credentials
@@ -106,10 +109,13 @@ def test_verify_login_with_valid_credentials(request_context):
         "email": "tester_245@mail.com",
         "password": "tester2025#"
     }
-    response = request_context.post(f"{base_url}verifyLogin", params=params)
-    assert response.status == 200
+    response = request_context.post(f"{base_url}api/verifyLogin", form=params)
 
-    pprint.pprint(response.json())
+    response_body = response.json()
+    assert response_body["responseCode"] == 200
+    assert response_body["message"] == "User exists!"
+
+
 
 
 

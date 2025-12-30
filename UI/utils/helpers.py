@@ -5,7 +5,7 @@ import json
 import pytest
 from playwright.sync_api import Page, Playwright
 
-base_url = "https://automationexercise.com/api/"
+base_url = "https://automationexercise.com/"
 
 def generate_random_email():
     """
