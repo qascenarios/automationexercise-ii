@@ -48,6 +48,12 @@ Ensure the following are installed on your system:
 ```bash
 git clone https://github.com/qascenarios/automationexercise-ii.git
 cd automationexercise-ii
+---------------------------------------------------------------------
+git clone https://github.com/qascenarios/automationexercise-ii-ts.git
+cd automationexercise-ii-ts
+---------------------------------------------------------------------
+git clone https://github.com/qascenarios/automationexercise-ii-js.git
+cd automationexercise-ii-js
 ```
 
 2. Create and activate a virtual environment (recommended):
